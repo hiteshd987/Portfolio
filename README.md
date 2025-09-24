@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 A collection of my personal and professional projects showcasing skills in software development, web development, and Machine Learning. Includes projects built with Python, JavaScript, Nextjs, and various tools & frameworks.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
