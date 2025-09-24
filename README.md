@@ -4,7 +4,18 @@ A collection of my personal and professional projects showcasing skills in softw
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Folder structure
+
+- `app/page.js`: Calls the homepage component
+- `components`: Contains js files for portfolio components
+
 ## Getting Started
+
+To install all the required dependencies after cloning or downloading the project run:
+
+```bash
+npm install
+```
 
 First, run the development server:
 
