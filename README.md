@@ -1,3 +1,5 @@
+# Portfolio
+
 A collection of my personal and professional projects showcasing skills in software development, web development, and Machine Learning. Includes projects built with Python, JavaScript, Nextjs, and various tools & frameworks.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -37,5 +39,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 =======
-# Portfolio
-ae0dea5
