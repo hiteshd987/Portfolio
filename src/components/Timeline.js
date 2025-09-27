@@ -36,11 +36,11 @@ return (
 </VerticalTimelineElement>
 <VerticalTimelineElement className="vertical-timeline-element--education" contentStyle={{ background: '#e0f7fa', color: '#000' }} iconStyle={{ background: '#00bcd4', color: '#fff' }} icon={<MdSchool />}>
 <h3 className="vertical-timeline-element-title">Technical University Ilmenau</h3>
-<p>Master's Degree in CS (2022-2026)</p>
+<p>{`Master's Degree in CS (2022-2026)`}</p>
 </VerticalTimelineElement>
 <VerticalTimelineElement className="vertical-timeline-element--education" contentStyle={{ background: '#e0f7fa', color: '#000' }} iconStyle={{ background: '#00bcd4', color: '#fff' }} icon={<MdSchool />}>
 <h3 className="vertical-timeline-element-title">NTNU</h3>
-<p>Master's Degree in CS (Exchange semester 2024)</p>
+<p>{`Master's Degree in CS (Exchange semester 2024)`}</p>
 </VerticalTimelineElement>
 
 
@@ -54,7 +54,7 @@ return (
 </VerticalTimelineElement>
 <VerticalTimelineElement className="vertical-timeline-element--education" contentStyle={{ background: '#e0f7fa', color: '#000' }} iconStyle={{ background: '#00bcd4', color: '#fff' }} icon={<MdSchool />}>
 <h3 className="vertical-timeline-element-title">Nagpur University</h3>
-<p>Bachelor's Degree in CS (2015-2018)</p>
+<p>{`Bachelor's Degree in CS (2015-2018)`}</p>
 </VerticalTimelineElement>
 
 </VerticalTimeline>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const projects = [
   { 
@@ -92,11 +93,21 @@ export default function Projects() {
             onClick={() => openModal(idx)}
           >
             {/* Image: cover the card area */}
-            <div className="w-full h-80">
+            {/* <div className="w-full h-80">
               <img
                 src={project.img}
                 alt={project.name}
                 className="w-full h-full object-cover"
+              />
+            </div> */}
+
+            <div className="w-full h-80 relative">
+              <Image
+                src={project.img}
+                alt={project.name}
+                fill
+                className="object-cover rounded-t-lg" // keeps aspect & rounded corners if you want
+                priority={false} // set to true for above-the-fold images
               />
             </div>
 
