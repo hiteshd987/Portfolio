@@ -14,20 +14,29 @@ export default function Skills() {
       className="py-20 relative overflow-hidden"
       id="skills"
     >
-      {/* ── Blob background ── */}
+{/* ── Optimized Responsive Blob background ── */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute w-[40rem] h-[40rem] -left-40 -top-24
-                        bg-orange-300 dark:bg-orange-400
-                        rounded-full opacity-25 dark:opacity-20
-                        filter blur-3xl transform -rotate-12" />
-        <div className="absolute w-[36rem] h-[36rem] -right-32 -bottom-20
-                        bg-cyan-300 dark:bg-cyan-400
-                        rounded-full opacity-20 dark:opacity-18
-                        filter blur-3xl transform rotate-12" />
-        <div className="absolute w-[48rem] h-[48rem] left-1/2 top-1/3 -translate-x-1/2
-                        bg-yellow-200 dark:bg-yellow-300
-                        rounded-full opacity-15 dark:opacity-10
-                        filter blur-[6rem]" />
+        
+        {/* Orange Blob */}
+        <div className="absolute rounded-full transform -rotate-12
+                        w-64 h-64 -left-20 -top-12 opacity-25 filter blur-2xl
+                        md:w-[40rem] md:h-[40rem] md:-left-40 md:-top-24 md:opacity-25 
+                        md:dark:opacity-20 md:blur-3xl
+                        bg-orange-300 dark:bg-orange-400" />
+        
+        {/* Cyan Blob */}
+        <div className="absolute rounded-full transform rotate-12
+                        w-64 h-64 -right-16 -bottom-10 opacity-20 filter blur-2xl
+                        md:w-[36rem] md:h-[36rem] md:-right-32 md:-bottom-20 md:opacity-20 
+                        md:dark:opacity-18 md:blur-3xl
+                        bg-cyan-300 dark:bg-cyan-400" />
+        
+        {/* Center Yellow Blob */}
+        <div className="absolute rounded-full left-1/2 top-1/3 -translate-x-1/2
+                        w-80 h-80 opacity-15 filter blur-[4rem]
+                        md:w-[48rem] md:h-[48rem] md:opacity-15 md:dark:opacity-10 
+                        md:blur-[6rem]
+                        bg-yellow-200 dark:bg-yellow-300" />
       </div>
 
       {/* Section heading */}

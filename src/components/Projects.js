@@ -25,7 +25,7 @@ const projectsList = [
 
     ],
 
-    img: "/images/music_simplification.png",
+    img: "/images/music_simplification.webp",
 
   },
 
@@ -35,13 +35,13 @@ const projectsList = [
       // Notice the <> at the start and </> at the end of this item!
       <>
         Won ThinkSport <a href="https://www.idmt.fraunhofer.de/en/Press_and_Media/press_releases/2026/solution-for-generating-movement-synchronized-and-license-free-music.html"
-         target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-400 hover:underline font-semibold">DataHack challenge</a> by architecting an end-to-end AI pipeline that autonomously synchronizes generative music with professional figure skating choreography via Computer Vision and Graph Convolutional Networks (MDR-GCN).
+         target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-400 hover:underline font-semibold">DataHack challenge</a> by architecting an end-to-end AI pipeline that autonomously synchronizes generative music with Olympics figure skating choreography via Computer Vision and Graph Convolutional Networks (MDR-GCN).
       </>,
       "Engineered a skeletal tracking pipeline utilizing OpenPose to isolate performer keypoints and process 500-frame video chunks, accurately predicting and timestamping complex moves (e.g., Axels, Sit Spins) into structured JSON data.",
       "Developed a dynamic prompt-generation engine that translates timestamped physical movements into contextual musical attributes, algorithmically mapping jumps to dramatic orchestrations and spins to flowing string melodies.",
       "Integrated the InspireMusic generative model using text-to-music and continuation modes to seamlessly chain 45-second audio segments, outputting continuous, high-fidelity (48kHz) synchronized soundtracks for full-length performances.",
     ],
-    img: "/images/datahack-group.jpg",
+    img: "/images/datahack.webp",
   },
 
   {
@@ -60,7 +60,7 @@ const projectsList = [
 
     ],
 
-    img: "/images/Dnd-spell.png",
+    img: "/images/Dnd-spell.webp",
 
   },
 
@@ -117,12 +117,33 @@ export default function Projects() {
   return (
     <section className="py-20 relative overflow-hidden text-gray-900 dark:text-white" id="projects">
       
-      {/* ── Blob background ── */}
+{/* ── Optimized Responsive Blob background ── */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute w-[40rem] h-[40rem] -left-40 -top-24 bg-purple-400 dark:bg-purple-500 rounded-full opacity-15 dark:opacity-20 filter blur-3xl transform -rotate-12" />
-        <div className="absolute w-[36rem] h-[36rem] -right-32 -bottom-20 bg-pink-400 dark:bg-pink-500 rounded-full opacity-15 dark:opacity-18 filter blur-3xl transform rotate-12" />
-        <div className="absolute w-[48rem] h-[48rem] left-1/2 top-1/3 -translate-x-1/2 bg-blue-300 dark:bg-blue-400 rounded-full opacity-10 filter blur-[6rem]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 dark:via-black/10 to-black/10 dark:to-black/30 opacity-40" />
+        
+        {/* Purple Blob: Reduced size/blur on mobile */}
+        <div className="absolute rounded-full transform -rotate-12
+                        w-64 h-64 -left-20 -top-12 opacity-20 filter blur-2xl
+                        md:w-[40rem] md:h-[40rem] md:-left-40 md:-top-24 md:opacity-15 
+                        md:dark:opacity-20 md:blur-3xl
+                        bg-purple-400 dark:bg-purple-500" />
+        
+        {/* Pink Blob: Reduced size/blur on mobile */}
+        <div className="absolute rounded-full transform rotate-12
+                        w-64 h-64 -right-16 -bottom-10 opacity-18 filter blur-2xl
+                        md:w-[36rem] md:h-[36rem] md:-right-32 md:-bottom-20 md:opacity-15 
+                        md:dark:opacity-18 md:blur-3xl
+                        bg-pink-400 dark:bg-pink-500" />
+        
+        {/* Center Blue Blob: Significantly lighter blur for mobile GPU */}
+        <div className="absolute rounded-full left-1/2 top-1/3 -translate-x-1/2
+                        w-80 h-80 opacity-10 filter blur-[4rem]
+                        md:w-[48rem] md:h-[48rem] md:blur-[6rem]
+                        bg-blue-300 dark:bg-blue-400" />
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent 
+                        via-black/5 dark:via-black/10 
+                        to-black/10 dark:to-black/30 opacity-40" />
       </div>
 
       <h2 className="text-3xl font-bold text-center mb-12">Projects</h2>
@@ -165,7 +186,22 @@ export default function Projects() {
                   onClick={() => openModal(project)}
                 >
                   <div className="w-full h-80 relative">
-                    <Image src={project.img} alt={project.name} fill className="object-cover" priority={false} />
+                    <Image
+                        src={project.img}
+                        alt={project.name}
+                        fill
+                        className="object-cover"
+                        /* This tells the browser:
+                          - Below 768px (Mobile): Image is 100% of the viewport width.
+                          - Below 1200px (Tablet): Image is 50% of the viewport (2 columns).
+                          - Above that (Desktop): Image is 33% of the viewport (3 columns).
+                        */
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        
+                        /* Lowering quality slightly for mobile performance */
+                        quality={75}
+                        priority={false}
+                      />
                   </div>
                   <div className="p-4 text-center">
                     <h3 className="font-bold text-xl text-gray-900 dark:text-white">{project.name}</h3>
