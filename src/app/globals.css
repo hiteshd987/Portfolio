@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────
+   Enable class-based dark mode for Tailwind v4.
+   Applies dark: utilities whenever an ancestor
+   has the `dark` class (set on <html>).
+────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Light-mode tokens (default) ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f0f4f8;
+  --foreground: #0f172a;
+}
+
+/* ── Dark-mode tokens ── */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,35 +26,28 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Smooth theme transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
+/* ── Float animations for decorative blobs ── */
 @keyframes floatRotate1 {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(20px) rotate(15deg); }
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(20px) rotate(15deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
-
 @keyframes floatRotate2 {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(-10deg); }
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-15px) rotate(-10deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
-
 @keyframes floatRotate3 {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(25px) rotate(20deg); }
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(25px) rotate(20deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
@@ -53,13 +60,11 @@ body {
   50%  { filter: hue-rotate(45deg); }
   100% { filter: hue-rotate(0deg); }
 }
-
 @keyframes hueShift2 {
   0%   { filter: hue-rotate(0deg); }
   50%  { filter: hue-rotate(-30deg); }
   100% { filter: hue-rotate(0deg); }
 }
-
 @keyframes hueShift3 {
   0%   { filter: hue-rotate(0deg); }
   50%  { filter: hue-rotate(60deg); }

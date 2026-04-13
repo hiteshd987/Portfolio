@@ -3,175 +3,225 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const projects = [
-  { 
-    name: "Datahack", 
-    desc: [ "Collaborated in a team to address real-world challenges in sports innovation using AI/ML, computer vision, and generative music tools.",
-            "Applied Alibaba Cloud AI stack (InspireMusic, AnalyticDB) to build scalable solutions for data analysis, model training, and deployment.",
-            "Researched and prototyping methods for music generation aligned with figure skating performance, ensuring emotional impact and copyright safety.",
-            "Analyzing video footage and movement patterns using computer vision to map choreography to rhythm, beat, and mood in generated music.",
-            "Working with mentors and domain experts in music information retrieval, AI/ML, and multimedia analysis to refine technical and creative approaches."
-     ], 
-    img: "/images/datahack-group.jpg" 
-  },
+const projectsList = [
+
   {
-    name: "DnD Spell Generator",
+
+    name: "Automatic Music Simplification",
+
     desc: [
-      "Fine-tuned Llama 3.2 in Python using Open5e official spells and homebrew spells to produce balanced, rule-compliant Dungeons & Dragons spells.",
-      "Built an interactive NPC system in Unity using GPT 4.1 to dynamically generate D&D spells. ",
-      "Designed a human evaluation survey to guess spells between the mix of human and AI generated.",
-      "Applied BLEU and BERTScore for quality assessment"
+
+      "Developed an end-to-end Machine Learning pipeline to automate the difficulty reduction of highly syncopated drum and bass charts, breaking down technical barriers for novice musicians.",
+
+      "Collaborated with the Semantic Music Technologies group at Fraunhofer IDMT to frame rhythmic simplification as a sequence-to-sequence symbolic translation task.",
+
+      "Engineered a custom data pipeline to ingest, parse, and quantize real-world musical scores from the Enchor.us database into 16th-note multi-hot encoded tensors.",
+
+      "Trained and evaluated Bi-LSTM, Transformer, and 1D U-Net architectures to analyze their distinct inductive biases in mimicking human musical abstraction.",
+
+      "Demonstrated that the 1D U-Net's hierarchical feature compression successfully outperformed other models, preserving structural downbeats while intelligently thinning dense note clusters."
+
     ],
-    img: "/images/Dnd-spell.png" 
+
+    img: "/images/music_simplification.png",
+
   },
-  { 
-    name: "Fleet Management",
+
+{
+    name: "Datahack",
     desc: [
-      "Developed key modules for real-time vehicle tracking, trip booking, and bid management for a Dubai Technology fleet management platform.",
-      "Built reusable UI components using Ant Design and implemented Redux for scalable and maintainable state management.",
-      "Collaborated in Agile sprints with cross-functional teams, using Git and Jira to deliver high-quality, testable code.",
-      "Improved operational eﬃciency for logistics clients by delivering a seamless and user-friendly fleet management and bidding platform."
+      // Notice the <> at the start and </> at the end of this item!
+      <>
+        Won ThinkSport <a href="https://www.idmt.fraunhofer.de/en/Press_and_Media/press_releases/2026/solution-for-generating-movement-synchronized-and-license-free-music.html"
+         target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-400 hover:underline font-semibold">DataHack challenge</a> by architecting an end-to-end AI pipeline that autonomously synchronizes generative music with professional figure skating choreography via Computer Vision and Graph Convolutional Networks (MDR-GCN).
+      </>,
+      "Engineered a skeletal tracking pipeline utilizing OpenPose to isolate performer keypoints and process 500-frame video chunks, accurately predicting and timestamping complex moves (e.g., Axels, Sit Spins) into structured JSON data.",
+      "Developed a dynamic prompt-generation engine that translates timestamped physical movements into contextual musical attributes, algorithmically mapping jumps to dramatic orchestrations and spins to flowing string melodies.",
+      "Integrated the InspireMusic generative model using text-to-music and continuation modes to seamlessly chain 45-second audio segments, outputting continuous, high-fidelity (48kHz) synchronized soundtracks for full-length performances.",
     ],
-    img: "/images/fleet-management.png" },
+    img: "/images/datahack-group.jpg",
+  },
+
+  {
+
+    name: "D&D Spell Generator",
+
+    desc: [
+
+      "Fine-tuned LLaMA 3.2 using LoRA (via Hugging Face transformers, peft, and trl) on consumer GPUs, training the model on Open5e SRD and homebrew data to generate balanced, rule-compliant Dungeons & Dragons spells.",
+
+      "Architected a 4-stage automated data pipeline to fetch raw API data, synthesize design rationales using the OpenAI API, and format deduplicated records into a high-quality, instruction-tuned conversational dataset.",
+
+      "Built an interactive NPC system in Unity utilizing GPT-4.1 to dynamically generate and deliver contextual, on-the-fly D&D spells within a live game environment.",
+
+      "Validated generation quality quantitatively using BLEU and BERTScore metrics, and designed a Turing-style human evaluation survey to successfully benchmark the AI's output against human-authored content.",
+
+    ],
+
+    img: "/images/Dnd-spell.png",
+
+  },
+
+  {
+
+    name: "Fleet Management",
+
+    desc: [
+
+      "Prototyped a Predictive ETA and Route Optimization model leveraging historical GPS and traffic data to minimize delivery delays for a Dubai-based logistics and fleet management platform.",
+
+      "Engineered an AI-driven Smart Bidding system using dynamic pricing algorithms to automate bid scoring, recommend optimal pricing, and detect anomalies across complex, role-based user hierarchies.",
+
+      "Architected scalable front-end systems utilizing JavaScript, Redux, and Ant Design to build reusable UI components, effectively visualizing real-time vehicle tracking, predictive routing, and bid analytics.",
+
+      "Streamlined operational efficiency for enterprise logistics clients by collaborating in Agile sprints to deliver a robust, user-friendly platform that optimized trip booking and fleet management workflows.",
+
+    ],
+
+    img: "/images/fleet-management.png",
+
+  },
+
 ];
 
 export default function Projects() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // --- State Definitions ---
+  const [carouselItems, setCarouselItems] = useState(projectsList);
+  const [selectedProject, setSelectedProject] = useState(null); // This was the missing piece!
 
-  const openModal = (index) => {
-    setCurrentIndex(index);
-    setIsOpen(true);
+  // --- Infinite Carousel Logic ---
+  const nextSlide = () => {
+    setCarouselItems((prev) => [...prev.slice(1), prev[0]]);
   };
 
-  const closeModal = () => setIsOpen(false);
+  const prevSlide = () => {
+    setCarouselItems((prev) => [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)]);
+  };
 
-  const prevProject = () =>
-    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  // --- Modal Logic ---
+  const openModal = (project) => setSelectedProject(project);
+  const closeModal = () => setSelectedProject(null);
 
-  const nextProject = () =>
-    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  const prevModalProject = () => {
+    const idx = projectsList.findIndex((p) => p.name === selectedProject.name);
+    setSelectedProject(idx === 0 ? projectsList[projectsList.length - 1] : projectsList[idx - 1]);
+  };
+
+  const nextModalProject = () => {
+    const idx = projectsList.findIndex((p) => p.name === selectedProject.name);
+    setSelectedProject(idx === projectsList.length - 1 ? projectsList[0] : projectsList[idx + 1]);
+  };
 
   return (
-    <section
-      className="py-20 relative overflow-hidden text-white"
-      id="projects"
-    >
-      {/* -----------------------------
-          Blurred mesh / blob background
-         ----------------------------- */}
+    <section className="py-20 relative overflow-hidden text-gray-900 dark:text-white" id="projects">
+      
+      {/* ── Blob background ── */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-
-  <div className="absolute w-[40rem] h-[40rem] -left-40 -top-24 bg-purple-500 rounded-full opacity-20 filter blur-3xl transform -rotate-12" />
-
-
-  <div className="absolute w-[36rem] h-[36rem] -right-32 -bottom-20 bg-pink-500 rounded-full opacity-18 filter blur-3xl transform rotate-12" />
-
-
-  <div className="absolute w-[48rem] h-[48rem] left-1/2 top-1/3 -translate-x-1/2 bg-blue-400 rounded-full opacity-10 filter blur-4xl" />
-
-
-  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 opacity-40" />
-</div>
+        <div className="absolute w-[40rem] h-[40rem] -left-40 -top-24 bg-purple-400 dark:bg-purple-500 rounded-full opacity-15 dark:opacity-20 filter blur-3xl transform -rotate-12" />
+        <div className="absolute w-[36rem] h-[36rem] -right-32 -bottom-20 bg-pink-400 dark:bg-pink-500 rounded-full opacity-15 dark:opacity-18 filter blur-3xl transform rotate-12" />
+        <div className="absolute w-[48rem] h-[48rem] left-1/2 top-1/3 -translate-x-1/2 bg-blue-300 dark:bg-blue-400 rounded-full opacity-10 filter blur-[6rem]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 dark:via-black/10 to-black/10 dark:to-black/30 opacity-40" />
+      </div>
 
       <h2 className="text-3xl font-bold text-center mb-12">Projects</h2>
 
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 max-w-6xl mx-auto"> */}
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {projects.map((project, idx) => (
-          <motion.div
-            key={idx}
-            className="relative rounded-xl overflow-hidden cursor-pointer
-                       bg-white/8 border border-white/10 backdrop-blur-md
-                       shadow-lg transition-transform hover:scale-105"
-            whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            onClick={() => openModal(idx)}
-          >
-            {/* Image: cover the card area */}
-            {/* <div className="w-full h-80">
-              <img
-                src={project.img}
-                alt={project.name}
-                className="w-full h-full object-cover"
-              />
-            </div> */}
+      {/* ── Infinite Carousel Section ── */}
+      <div className="container mx-auto px-4 relative group">
+        
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 hover:scale-110 backdrop-blur-sm"
+          aria-label="Previous project"
+        >
+          <FaChevronLeft size={20} />
+        </button>
 
-            <div className="w-full h-80 relative">
-              <Image
-                src={project.img}
-                alt={project.name}
-                fill
-                className="object-cover rounded-t-lg" // keeps aspect & rounded corners if you want
-                priority={false} // set to true for above-the-fold images
-              />
-            </div>
+        <button
+          onClick={nextSlide}
+          className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 hover:scale-110 backdrop-blur-sm"
+          aria-label="Next project"
+        >
+          <FaChevronRight size={20} />
+        </button>
 
-            <div className="p-4 text-center">
-              <h3 className="font-bold text-xl text-white">{project.name}</h3>
-              <p className="mt-2 text-gray-200">
-                {Array.isArray(project.desc) ? project.desc[0] + "..." : project.desc}
-              </p>
-            </div>
+        {/* Track */}
+        <div className="overflow-hidden py-4">
+          <motion.div className="flex flex-nowrap gap-6" layout>
+            <AnimatePresence mode="popLayout" initial={false}>
+              {carouselItems.map((project) => (
+                <motion.div
+                  key={project.name}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, x: 50 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, x: -50 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="relative rounded-xl overflow-hidden cursor-pointer bg-white/70 dark:bg-white/8 border border-gray-200 dark:border-white/10 backdrop-blur-md shadow-lg shrink-0
+                             w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+                  whileHover={{ y: -5 }}
+                  onClick={() => openModal(project)}
+                >
+                  <div className="w-full h-80 relative">
+                    <Image src={project.img} alt={project.name} fill className="object-cover" priority={false} />
+                  </div>
+                  <div className="p-4 text-center">
+                    <h3 className="font-bold text-xl text-gray-900 dark:text-white">{project.name}</h3>
+                      <div className="mt-2 text-gray-600 dark:text-gray-200 text-sm line-clamp-2 pointer-events-none">
+                        {Array.isArray(project.desc) ? project.desc[0] : project.desc}
+                      </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
-        ))}
+        </div>
       </div>
 
-      {/* Modal */}
+      {/* ── Responsive Mobile Modal ── */}
       <AnimatePresence>
-        {isOpen && (
+        {selectedProject && (
           <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={closeModal}
           >
             <motion.div
-              className="relative bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-10 w-11/12 md:w-3/4 max-w-3xl flex flex-col items-center"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              className="relative rounded-2xl shadow-2xl p-5 md:p-10 w-full max-w-3xl flex flex-col items-center bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 max-h-[90vh]"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }} transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
               <button
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xl font-bold transition"
+                className="absolute top-3 right-3 md:top-5 md:right-5 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-lg md:text-xl font-bold transition z-10"
                 onClick={closeModal}
               >
                 &times;
               </button>
 
-              {/* Modal content */}
-              <h3 className="font-bold text-2xl md:text-3xl mb-6 text-gray-900 dark:text-gray-100">
-                {projects[currentIndex].name}
+              <h3 className="font-bold text-xl md:text-3xl mb-4 pr-6 text-center w-full">
+                {selectedProject.name}
               </h3>
 
-              <div className="max-h-[60vh] overflow-y-auto px-2 w-full">
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-3 text-left">
-                  {projects[currentIndex].desc.map((point, idx) => (
-                    <li key={idx}>{point}</li>
+              <div className="overflow-y-auto px-2 w-full flex-grow mb-2">
+                <ul className="list-disc list-inside text-sm md:text-base text-gray-700 dark:text-gray-300 space-y-3 text-left">
+                  {selectedProject.desc.map((point, i) => (
+                    <li key={i}>{point}</li>
                   ))}
                 </ul>
               </div>
 
-              {/* Navigation arrows */}
-              <div className="flex justify-between items-center w-full mt-8">
+              <div className="flex justify-between items-center w-full mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 shrink-0">
                 <button
-                  className="px-6 py-3 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-xl font-bold shadow-md transition text-gray-800 dark:text-gray-200"
-                  onClick={prevProject}
+                  className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-md transition bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200"
+                  onClick={prevModalProject}
                 >
                   &#8592; Prev
                 </button>
-
                 <button
-                  className="px-6 py-3 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-xl font-bold shadow-md transition text-gray-800 dark:text-gray-200"
-                  onClick={nextProject}
+                  className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-md transition bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200"
+                  onClick={nextModalProject}
                 >
                   Next &#8594;
                 </button>
