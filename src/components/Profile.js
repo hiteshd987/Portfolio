@@ -10,25 +10,21 @@ export default function Profile() {
   const { resolved } = useTheme();
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center">
       {/* Background Image */}
       <Image
         src="/images/profile-bg.webp"
         alt="Background"
         fill
         priority
-        /* ── OPTIMIZATIONS ── */
-        sizes="100vw" // Tells the browser this image always fills the full width
-        quality={80}  // 80 is the sweet spot between sharp quality and low file size
-        /* ────────────────── */
+        sizes="100vw"
+        quality={80}
         className="object-cover transition-opacity duration-500"
         style={{ opacity: resolved === "dark" ? 0.6 : 0.7 }}
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" 
       />
 
-      {/* ── Overlay Layer ── */}
-      {/* This layer ensures text is readable. Backdrop-blur makes it look high-end. */}
       <div 
         className={`absolute inset-0 z-0 transition-colors duration-500
           ${resolved === "dark" ? "bg-black/60" : "bg-black/30"} 
@@ -37,7 +33,7 @@ export default function Profile() {
 
       <section
         id="profile"
-        className="relative h-screen flex flex-col items-center justify-center text-center px-4 text-white z-10"
+        className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-12 text-white z-10 w-full"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -47,25 +43,37 @@ export default function Profile() {
           <Image
             src="/images/profile_picc.jpg"
             alt="Profile"
-            /* ── UPDATED SHAPE ── */
-            /* We changed rounded-full to modern, asymmetrical corners. */
-            /* We also added object-top so the face doesn't get cut off on rectangle crop */
-            className="mb-6 shadow-2xl object-cover object-top mx-auto
+            className="shadow-2xl object-cover object-top mx-auto aspect-square ring-4 ring-white/10
+                       rounded-tl-[40px] md:rounded-tl-[60px] 
+                       rounded-tr-[10px] md:rounded-tr-[15px] 
+                       rounded-br-[40px] md:rounded-br-[60px] 
+                       rounded-bl-[10px] md:rounded-bl-[15px]
                        
-                       /* Shape definitions */
-                       aspect-square ring-4 ring-white/10
-                       rounded-tl-[40px] rounded-tr-[10px] rounded-br-[40px] rounded-bl-[10px]
+                       /* ── THE FIX: Explicit Variant Stacking ── */
+                       /* 1. Base Sizes (Portrait) */
+                       w-[180px] md:w-[280px] lg:w-[300px] xl:w-[360px]
+                       /* 2. Shrink for ALL landscape screens */
+                       landscape:w-[130px] 
+                       /* 3. Force Desktop & Laptops back to large size */
+                       lg:landscape:w-[300px] xl:landscape:w-[300px]
                        
-                       /* Responsive sizes */
-                       w-[200px] md:w-[280px] lg:w-[320px] h-auto"
-            width={320}
-            height={320}
+                       mb-6 md:mb-8 lg:mb-10 
+                       landscape:mb-2 lg:landscape:mb-10 
+                       h-auto"
+            width={420}
+            height={420}
             priority
           />
         </motion.div>
 
         <motion.h1
-          className="text-4xl md:text-6xl font-bold mb-4 tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
+          className="font-bold tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]
+                     /* Portrait & Base Sizes */
+                     text-4xl md:text-6xl lg:text-7xl xl:text-8xl 
+                     /* Landscape Shrink -> Desktop Restore */
+                     landscape:text-2xl lg:landscape:text-5xl xl:landscape:text-5xl
+                     
+                     mb-4 md:mb-6 landscape:mb-1 lg:landscape:mb-6"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
@@ -73,7 +81,9 @@ export default function Profile() {
           {`Hi, I'm Hitesh Derkar`}
         </motion.h1>
 
-        <div className="text-xl md:text-3xl font-semibold drop-shadow-md text-cyan-300">
+        <div className="font-semibold drop-shadow-md text-cyan-300
+                        text-xl md:text-3xl lg:text-4xl 
+                        landscape:text-lg lg:landscape:text-3xl">
           <Typewriter
             options={{
               strings: ["AI / ML Enthusiast"],
@@ -88,13 +98,22 @@ export default function Profile() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-8 text-lg md:text-xl max-w-2xl text-gray-100 font-medium leading-relaxed drop-shadow-sm"
+          className="text-gray-100 font-medium leading-relaxed drop-shadow-sm mx-auto
+                     mt-6 md:mt-10 lg:mt-12
+                     landscape:mt-2 lg:landscape:mt-12
+                     
+                     text-base md:text-xl lg:text-2xl 
+                     landscape:text-sm lg:landscape:text-xl
+                     
+                     max-w-2xl lg:max-w-4xl 
+                     landscape:max-w-xl lg:landscape:max-w-4xl"
         >
           {`Master's student in Research in Computer and Systems Engineering at Technical University Ilmenau.
             Proficient in Python and JavaScript, with a focus on Deep Learning.`}
         </motion.div>
 
-        <div className="flex justify-center space-x-6 mt-10">
+        <div className="flex justify-center space-x-6 md:space-x-8 
+                        mt-8 md:mt-12 landscape:mt-4 lg:landscape:mt-12">
           <a
             href="https://github.com/hiteshd987"
             target="_blank"
@@ -102,7 +121,8 @@ export default function Profile() {
             aria-label="GitHub Profile"
             className="hover:text-cyan-400 hover:scale-110 transition-all duration-300 drop-shadow-lg"
           >
-            <FaGithub size={35} />
+            <FaGithub className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 
+                                 landscape:w-6 landscape:h-6 lg:landscape:w-12 lg:landscape:h-12" />
           </a>
           <a
             href="https://www.linkedin.com/in/hitesh-derkar-151aa7147/"
@@ -111,7 +131,8 @@ export default function Profile() {
             aria-label="LinkedIn Profile"
             className="hover:text-blue-400 hover:scale-110 transition-all duration-300 drop-shadow-lg"
           >
-            <FaLinkedin size={35} />
+            <FaLinkedin className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 
+                                   landscape:w-6 landscape:h-6 lg:landscape:w-12 lg:landscape:h-12" />
           </a>
         </div>
       </section>
