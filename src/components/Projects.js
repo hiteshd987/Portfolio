@@ -152,9 +152,13 @@ export default function Projects() {
       <div className="container mx-auto px-4 relative group">
         
         {/* Navigation Buttons */}
-        <button
+       <button
           onClick={prevSlide}
-          className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 hover:scale-110 backdrop-blur-sm"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 
+                     p-3 rounded-full shadow-lg opacity-100 
+                     transition-all duration-300 backdrop-blur-sm
+                     bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 
+                     text-gray-800 dark:text-gray-200 hover:scale-110"
           aria-label="Previous project"
         >
           <FaChevronLeft size={20} />
@@ -162,7 +166,11 @@ export default function Projects() {
 
         <button
           onClick={nextSlide}
-          className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full shadow-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 hover:scale-110 backdrop-blur-sm"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 
+                     p-3 rounded-full shadow-lg opacity-100 
+                     transition-all duration-300 backdrop-blur-sm
+                     bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 
+                     text-gray-800 dark:text-gray-200 hover:scale-110"
           aria-label="Next project"
         >
           <FaChevronRight size={20} />
