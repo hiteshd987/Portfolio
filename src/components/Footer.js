@@ -38,9 +38,9 @@ export default function Footer() {
           
           {/* 1. Brand & Tagline */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight cursor-default">
+            {/* <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight cursor-default">
               HD<span className="text-cyan-500">.</span>
-            </h3>
+            </h3> */}
             <p className="text-sm text-gray-700 dark:text-gray-400 leading-relaxed max-w-xs mx-auto md:mx-0">
                 {`Master's student specializing in Deep Learning and AI. Building intelligent systems and seamless user experiences.`}
             </p>
