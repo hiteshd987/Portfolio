@@ -31,9 +31,14 @@ export default function Profile() {
           backdrop-blur-[2px]`} 
       />
 
-      <section
+     <section
         id="profile"
-        className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-12 text-white z-10 w-full"
+        /* Swapped 'py-12' for a massive top padding (pt-28/32/40) 
+           to guarantee the image never touches the fixed navbar. */
+        className="relative min-h-screen flex flex-col items-center justify-center text-center 
+                   px-4 pb-12 text-white z-10 w-full
+                   pt-28 md:pt-32 lg:pt-36 xl:pt-40
+                   landscape:pt-24 lg:landscape:pt-36"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -49,31 +54,31 @@ export default function Profile() {
                        rounded-br-[40px] md:rounded-br-[60px] 
                        rounded-bl-[10px] md:rounded-bl-[15px]
                        
-                       /* ── THE FIX: Explicit Variant Stacking ── */
-                       /* 1. Base Sizes (Portrait) */
-                       w-[180px] md:w-[280px] lg:w-[300px] xl:w-[360px]
-                       /* 2. Shrink for ALL landscape screens */
+                       /* Image Scaling */
+                       w-[180px] md:w-[240px] lg:w-[240px] xl:w-[260px] 2xl:w-[320px]
                        landscape:w-[130px] 
-                       /* 3. Force Desktop & Laptops back to large size */
-                       lg:landscape:w-[300px] xl:landscape:w-[300px]
+                       lg:landscape:w-[240px] xl:landscape:w-[260px] 2xl:landscape:w-[320px]
                        
-                       mb-6 md:mb-8 lg:mb-10 
-                       landscape:mb-2 lg:landscape:mb-10 
+                       /* Spacing */
+                       mb-6 md:mb-6 lg:mb-6 xl:mb-8 2xl:mb-10 
+                       landscape:mb-2 lg:landscape:mb-6 xl:landscape:mb-8 2xl:landscape:mb-10 
                        h-auto"
-            width={420}
-            height={420}
+            width={320}
+            height={320}
             priority
           />
         </motion.div>
 
+        {/* ── 1. The Name (Largest) ── */}
         <motion.h1
           className="font-bold tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]
                      /* Portrait & Base Sizes */
-                     text-4xl md:text-6xl lg:text-7xl xl:text-8xl 
-                     /* Landscape Shrink -> Desktop Restore */
-                     landscape:text-2xl lg:landscape:text-5xl xl:landscape:text-5xl
+                     text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-7xl 
+                     /* Landscape & Laptop Restore */
+                     landscape:text-2xl lg:landscape:text-4xl xl:landscape:text-5xl 2xl:landscape:text-7xl
                      
-                     mb-4 md:mb-6 landscape:mb-1 lg:landscape:mb-6"
+                     mb-4 md:mb-4 lg:mb-4 xl:mb-6 2xl:mb-8
+                     landscape:mb-1 lg:landscape:mb-4 xl:landscape:mb-6"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
@@ -81,9 +86,11 @@ export default function Profile() {
           {`Hi, I'm Hitesh Derkar`}
         </motion.h1>
 
+        {/* ── 2. Flashing Text (Medium) ── */}
         <div className="font-semibold drop-shadow-md text-cyan-300
-                        text-xl md:text-3xl lg:text-4xl 
-                        landscape:text-lg lg:landscape:text-3xl">
+                        /* Subtitle Sizes */
+                        text-xl md:text-2xl lg:text-xl xl:text-2xl 2xl:text-4xl 
+                        landscape:text-lg lg:landscape:text-xl xl:landscape:text-2xl 2xl:landscape:text-4xl">
           <Typewriter
             options={{
               strings: ["AI / ML Enthusiast"],
@@ -94,19 +101,23 @@ export default function Profile() {
           />
         </div>
 
+        {/* ── 3. Description (Smallest) ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 1 }}
           className="text-gray-100 font-medium leading-relaxed drop-shadow-sm mx-auto
-                     mt-6 md:mt-10 lg:mt-12
-                     landscape:mt-2 lg:landscape:mt-12
+                     /* Spacing */
+                     mt-6 md:mt-8 lg:mt-6 xl:mt-8 2xl:mt-12
+                     landscape:mt-2 lg:landscape:mt-6 xl:landscape:mt-8 2xl:landscape:mt-12
                      
-                     text-base md:text-xl lg:text-2xl 
-                     landscape:text-sm lg:landscape:text-xl
+                     /* THE FIX: Shrunk Text Sizes for Laptops */
+                     text-sm md:text-base lg:text-sm xl:text-base 2xl:text-xl 
+                     landscape:text-xs lg:landscape:text-sm xl:landscape:text-base 2xl:landscape:text-xl
                      
-                     max-w-2xl lg:max-w-4xl 
-                     landscape:max-w-xl lg:landscape:max-w-4xl"
+                     /* Narrowed Max Width so small text doesn't stretch too far */
+                     max-w-xl md:max-w-2xl lg:max-w-xl xl:max-w-2xl 2xl:max-w-4xl 
+                     landscape:max-w-lg lg:landscape:max-w-xl xl:landscape:max-w-2xl 2xl:landscape:max-w-4xl"
         >
           {`Master's student in Research in Computer and Systems Engineering at Technical University Ilmenau.
             Proficient in Python and JavaScript, with a focus on Deep Learning.`}

@@ -4,7 +4,7 @@ import Timeline from "@/components/Timeline";
 import Skills from "@/components/Skills";
 // import About from "@/components/About";
 import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <Timeline />
       <Skills />
       {/* <About /> */}
-      {/* <Footer />  */}
+      <Footer /> 
     </>
   );
 }
