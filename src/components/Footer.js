@@ -42,7 +42,7 @@ export default function Footer() {
               HD<span className="text-cyan-500">.</span>
             </h3>
             <p className="text-sm text-gray-700 dark:text-gray-400 leading-relaxed max-w-xs mx-auto md:mx-0">
-              Master's student specializing in Deep Learning and AI. Building intelligent systems and seamless user experiences.
+                {`Master's student specializing in Deep Learning and AI. Building intelligent systems and seamless user experiences.`}
             </p>
           </div>
 
