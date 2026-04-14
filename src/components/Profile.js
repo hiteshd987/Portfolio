@@ -19,13 +19,14 @@ export default function Profile() {
         priority
         sizes="100vw"
         quality={80}
+        unoptimized={true}
         className="object-cover transition-opacity duration-500"
         style={{ opacity: resolved === "dark" ? 0.6 : 0.7 }}
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" 
       />
 
-      <div 
+     <div 
         className={`absolute inset-0 z-0 transition-colors duration-500
           ${resolved === "dark" ? "bg-black/60" : "bg-black/30"} 
           backdrop-blur-[2px]`} 
