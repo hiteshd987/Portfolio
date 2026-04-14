@@ -96,7 +96,7 @@ export default function Timeline() {
           icon={<MdSchool />}
         >
           <h3 className="vertical-timeline-element-title font-bold">Technical University Ilmenau</h3>
-          <p>{`Master's Degree in CS (2022–2026)`}</p>
+          <p>{`Master's Degree in RCSE (2022–2026)`}</p>
         </VerticalTimelineElement>
 
         <VerticalTimelineElement
@@ -106,8 +106,8 @@ export default function Timeline() {
           iconStyle={eduIcon}
           icon={<MdSchool />}
         >
-          <h3 className="vertical-timeline-element-title font-bold">NTNU</h3>
-          <p>{`Master's Degree in CS (Exchange semester 2024)`}</p>
+          <h3 className="vertical-timeline-element-title font-bold">NTNU, Norway</h3>
+          <p>{`Master's Degree in Computer Science (Exchange semester 2024)`}</p>
         </VerticalTimelineElement>
 
         <VerticalTimelineElement
@@ -117,7 +117,7 @@ export default function Timeline() {
           iconStyle={workIcon}
           icon={<MdWork />}
         >
-          <h3 className="vertical-timeline-element-title font-bold">Software Engineer</h3>
+          <h3 className="vertical-timeline-element-title font-bold">Software Engineer, India</h3>
           <p>Agathsya Technology pvt. ltd. (2021–2022)</p>
         </VerticalTimelineElement>
 
@@ -128,7 +128,7 @@ export default function Timeline() {
           iconStyle={workIcon}
           icon={<MdWork />}
         >
-          <h3 className="vertical-timeline-element-title font-bold">Software Engineer</h3>
+          <h3 className="vertical-timeline-element-title font-bold">Software Engineer, India</h3>
           <p>Cybage Software pvt. ltd. (2018–2021)</p>
         </VerticalTimelineElement>
 
@@ -139,8 +139,8 @@ export default function Timeline() {
           iconStyle={eduIcon}
           icon={<MdSchool />}
         >
-          <h3 className="vertical-timeline-element-title font-bold">Nagpur University</h3>
-          <p>{`Bachelor's Degree in CS (2015–2018)`}</p>
+          <h3 className="vertical-timeline-element-title font-bold">Nagpur University, India</h3>
+          <p>{`Bachelor's Degree in Computer Technology (2015–2018)`}</p>
         </VerticalTimelineElement>
       </VerticalTimeline>
     </section>
